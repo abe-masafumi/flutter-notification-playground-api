@@ -1,0 +1,48 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.pdb
+*.egg-info/
+*.mo
+
+# Local settings
+local_settings.py
+
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# Static and media files
+/static/
+/media/
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+
+# VS Code settings
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Pyenv
+.python-version
+
+# Poetry
+poetry.lock
+# Jupyter Notebook
+.ipynb_checkpoints
