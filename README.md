@@ -1,6 +1,12 @@
 # flutter-notification-playground-api
 Django
 
+環境
+python：3.12.4(pyenvで管理)
+Poetry：(version 1.8.3)
+
+作業手順
+
  ローカルでの作業
  
  pyenvをインストールし、使用したいpythonのバージョンをインストール(新しいもの)、グローバルに設定
