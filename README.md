@@ -1,36 +1,37 @@
 # flutter-notification-playground-api
 Django
 
-環境
-python：3.12.4(pyenvで管理)
-Poetry：(version 1.8.3)
+### 環境
 
-作業手順
+- python：3.12.4(pyenvで管理)
+- Poetry：(version 1.8.3)
 
- ローカルでの作業
- 
- pyenvをインストールし、使用したいpythonのバージョンをインストール(新しいもの)、グローバルに設定
+### 実行環境を準備
+-  pyenvをインストールし、使用したいpythonのバージョンをインストール(新しいもの)、グローバルに設定
+-  poetryをインストール
 
- poetryをインストール
+### プロジェクトの作成
 
+- Djangoの開発環境をDockerfile、docker-compose.ymlファイルで定義
 
-Djangoの開発環境をDockerfile、docker-compose.ymlファイルで定義
+- pyproject.tomlファイルを作成
 
-
-pyproject.tomlファイルを作成
 ```
 poetry init --name django_project --dependency django --dependency psycopg2-binary --dependency djangorestframework
 
-poetry install
+- poetry install
+
 ```
 
-Djangoプロジェクトを作成
+- Djangoプロジェクトを作成
+
 ```
 poetry run django-admin startproject myproject .
 ```
 
-DB設定
-`myproject/settings.py`
+- DB設定
+
+`myproject/settings.py`を修正
 
 ```
 import os
@@ -47,7 +48,13 @@ DATABASES = {
 }
 ```
 
-dockerコンテナの起動
+- dockerコンテナの起動
+
 ```
 docker-compose up -d
 ```
+
+- VS CodeでDockerコンテナに接続
+プロジェクトに必要なツールはコンテナ内に存在するため、VSCodeでコンテナに接続する(任意)
+
+ショートカットキー(Cmd+Shift+P)を使用し、Python: Select Interpreterを選択し、対象の環境を選択
