@@ -4,11 +4,12 @@
 
 ### 男性ユーザーエンドポイント
 
-- **GET /api/male-users/** - ユーザーのリストを取得
-- **POST /api/male-users/** - 新しいユーザーを登録
-- **GET /api/male-users/{id}/** - 特定のユーザーの情報を取得
-- **PUT /api/male-users/{id}/** - 特定のユーザーの情報を更新
-- **DELETE /api/male-users/{id}/** - 特定のユーザーを削除
+- **GET /api/maleuser/** - ユーザーのリストを取得
+- **POST /api/maleuser/** - 新しいユーザーを登録
+- **GET /api/maleuser/{id}/** - 特定のユーザーの情報を取得
+- **PUT /api/maleuser/{id}/** - 特定のユーザーの情報を更新
+- **PATCH /api/maleuser/{id}/** - 特定のユーザーの情報を更新
+- **DELETE /api/maleuser/{id}/** - 特定のユーザーを削除
 
 ### 趣味エンドポイント
 
@@ -20,9 +21,9 @@
 
 ### 女性ユーザーエンドポイント
 
-- **GET /api/female-users/** - ユーザーのリストを取得
-- **POST /api/female-users/** - 新しいユーザーを登録
-- **GET /api/female-users/{id}/** - 特定のユーザーの情報を取得
-- **PUT /api/female-users/{id}/** - 特定のユーザーの情報を更新
-- **DELETE /api/female-users/{id}/** - 特定のユーザーを削除
+- **GET /api/femaleuser/** - ユーザーのリストを取得
+- **POST /api/femaleuser/** - 新しいユーザーを登録
+- **GET /api/femaleuser/{id}/** - 特定のユーザーの情報を取得
+- **PUT /api/femaleuser/{id}/** - 特定のユーザーの情報を更新
+- **DELETE /api/femaleuser/{id}/** - 特定のユーザーを削除
 
