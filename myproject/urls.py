@@ -26,6 +26,7 @@ router = DefaultRouter()
 # ビューセットをルーターに登録
 router.register(r'user', views.CustomUserViewSet)
 router.register(r'maleuser', views.MaleUserViewSet)
+router.register(r'hobbies', views.HobbyViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
