@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, exceptions
 from .models import MaleUser
-from .serializers import MaleUserSerializer, MaleUserCreateSerializer, MaleUserUpdateSerializer
+from .serializers import MaleUserCreateSerializer, MaleUserUpdateSerializer
 
 # ルート画面
 def home_view(request):
@@ -16,4 +16,5 @@ class MyModelViewSet(viewsets.ModelViewSet):
             return MaleUserCreateSerializer
         elif self.action in ['update', 'partial_update']:
             return MaleUserUpdateSerializer
-        return MaleUserSerializer
+        else:
+            raise exceptions.MethodNotAllowed(self.action)
