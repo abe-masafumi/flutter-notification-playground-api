@@ -16,7 +16,8 @@ class CustomUserViewSet(viewsets.ModelViewSet):
             return CustomUserCreateSerializer
         else:
             raise exceptions.MethodNotAllowed(self.action)
-        
+
+# 男性ユーザー情報操作
 class MaleUserViewSet(viewsets.ModelViewSet):
     queryset = MaleUser.objects.all()
 
@@ -28,17 +29,12 @@ class MaleUserViewSet(viewsets.ModelViewSet):
         else:
             raise exceptions.MethodNotAllowed(self.action)
 
+# 趣味の作成、削除
 class HobbyViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Hobby.objects.all()
     serializer_class = HobbySerializer
 
-    # def get_queryset(self):
-    #     return Hobby.objects.filter(user=self.request.user)
-
     def perform_create(self, serializer):
         user_id = self.request.data.get('user')
-        try:
-            user = MaleUser.objects.get(user=user_id)
-        except MaleUser.DoesNotExist:
-            raise ValidationError("User with the given ID does not exist")
+        user = MaleUser.objects.get(user=user_id)
         serializer.save(user=user)
