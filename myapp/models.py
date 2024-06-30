@@ -41,7 +41,7 @@ class ProfileImage(models.Model):
 class Hobby(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=100)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MaleUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.type
