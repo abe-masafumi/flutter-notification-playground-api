@@ -9,13 +9,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 # 男性
 
-class MaleUserSerializer(serializers.ModelSerializer):
+# 
+# 単一取得
+# 
+class MaleUserRetrieveSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer()
 
     class Meta:
         model = MaleUser
         fields = ['user', 'username', 'birthday', 'address', 'introduction']
-        read_only_fields = ['user', 'username', 'birthday', 'address']
 
 # 
 # 新規登録
