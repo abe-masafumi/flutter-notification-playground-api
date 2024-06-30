@@ -7,14 +7,26 @@ class MaleUserSerializer(serializers.ModelSerializer):
         model = MaleUser
         fields = '__all__'
 
+# ユーザー編集
+class MaleUserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaleUser
+        fields = ['introduction']
+
 # 女性
 class FemaleUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = FemaleUser
         fields = '__all__'
 
+# ユーザー編集
+class FemaleUserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FemaleUser
+        fields = ['introduction']
+
 # カスタムユーザー
-class CustomUserSerializer(serializers.ModelSerializer):
+class CustomUserCreateSerializer(serializers.ModelSerializer):
     user = serializers.DictField(write_only=True, required=True)
     male_user = MaleUserSerializer(read_only=True)
     female_user = FemaleUserSerializer(read_only=True)
@@ -45,32 +57,46 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if instance.role == 'MALE':
             try:
                 male_user = MaleUser.objects.get(user=instance)
-                representation['user'] = {
+                representation['male_user'] = {
                     'address': male_user.address,
                     'introduction': male_user.introduction,
                 }
             except MaleUser.DoesNotExist:
-                representation['user'] = None
+                representation['male_user'] = None
         elif instance.role == 'FEMALE':
             try:
                 female_user = FemaleUser.objects.get(user=instance)
-                representation['user'] = {
+                representation['female_user'] = {
                     'introduction': female_user.introduction,
                 }
             except FemaleUser.DoesNotExist:
-                representation['user'] = None
+                representation['female_user'] = None
         return representation
 
-# プロフィール画像
-class ProfileImageSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProfileImage
+        model = CustomUser
         fields = '__all__'
 
 # 趣味
 class HobbySerializer(serializers.ModelSerializer):
     class Meta:
         model = Hobby
+        fields = '__all__'
+
+# 単一ユーザー取得
+class MaleUserRetrieveSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer()
+    hobbies = HobbySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = MaleUser
+        fields = ['user', 'hobbies', 'address', 'introduction']
+
+# プロフィール画像
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileImage
         fields = '__all__'
 
 # ログ
