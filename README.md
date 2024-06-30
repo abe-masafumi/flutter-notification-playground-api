@@ -19,8 +19,7 @@ Django
 ```
 poetry init --name django_project --dependency django --dependency psycopg2-binary --dependency djangorestframework
 
-- poetry install
-
+poetry install
 ```
 
 - Djangoプロジェクトを作成
@@ -58,3 +57,54 @@ docker-compose up -d
 プロジェクトに必要なツールはコンテナ内に存在するため、VSCodeでコンテナに接続する(任意)
 
 ショートカットキー(Cmd+Shift+P)を使用し、Python: Select Interpreterを選択し、対象の環境を選択
+
+### 以下のエラーでコンテナが起動しない場合
+```
+web-1  | The virtual environment found in /app/.venv seems to be broken.
+web-1  | Recreating virtualenv django-project in /app/.venv
+web-1  | Traceback (most recent call last):
+web-1  |   File "/app/manage.py", line 11, in main
+web-1  |     from django.core.management import execute_from_command_line
+web-1  | ModuleNotFoundError: No module named 'django'
+web-1  | 
+web-1  | The above exception was the direct cause of the following exception:
+web-1  | 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/app/manage.py", line 22, in <module>
+web-1  |     main()
+web-1  |   File "/app/manage.py", line 13, in main
+web-1  |     raise ImportError(
+web-1  | ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
+```
+
+poetryの仮想環境が破損している可能性があります。一度削除してください。
+```
+poetry env info
+rm -rf [プロジェクトのパス].venv
+or
+.venvディレクトリを削除
+```
+
+依存関係を再インストール
+```
+poetry install
+```
+
+再度コンテナを立ち上げ
+```
+docker-compose build --no-cache
+docker-compose up
+```
+
+
+python3 manage.py makemigrations
+
+python3 manage.py migrate
+
+python3 manage.py createsuperuser
+
+developer
+
+sample@example.com
+
+tester123
