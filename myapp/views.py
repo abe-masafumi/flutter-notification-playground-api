@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets, exceptions
-from .serializers import CustomUser, CustomUserCreateSerializer, MaleUserUpdateSerializer, MaleUser, MaleUserRetrieveSerializer
+from rest_framework import viewsets, exceptions, mixins
+from .serializers import CustomUser, CustomUserCreateSerializer, MaleUserUpdateSerializer, MaleUser, MaleUserRetrieveSerializer, Hobby, HobbySerializer
+from rest_framework.exceptions import ValidationError
 
 # ルート画面
 def home_view(request):
@@ -15,7 +16,8 @@ class CustomUserViewSet(viewsets.ModelViewSet):
             return CustomUserCreateSerializer
         else:
             raise exceptions.MethodNotAllowed(self.action)
-        
+
+# 男性ユーザー情報操作
 class MaleUserViewSet(viewsets.ModelViewSet):
     queryset = MaleUser.objects.all()
 
@@ -26,3 +28,13 @@ class MaleUserViewSet(viewsets.ModelViewSet):
             return MaleUserRetrieveSerializer
         else:
             raise exceptions.MethodNotAllowed(self.action)
+
+# 趣味の作成、削除
+class HobbyViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    queryset = Hobby.objects.all()
+    serializer_class = HobbySerializer
+
+    def perform_create(self, serializer):
+        user_id = self.request.data.get('user')
+        user = MaleUser.objects.get(user=user_id)
+        serializer.save(user=user)

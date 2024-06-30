@@ -82,7 +82,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class HobbySerializer(serializers.ModelSerializer):
     class Meta:
         model = Hobby
-        fields = '__all__'
+        fields = ['id', 'user', 'type']
 
 # 単一ユーザー取得
 class MaleUserRetrieveSerializer(serializers.ModelSerializer):

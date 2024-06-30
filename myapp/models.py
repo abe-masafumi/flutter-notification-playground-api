@@ -13,7 +13,7 @@ class CustomUser(models.Model):
     birthday = models.DateField()
 
     def __str__(self):
-        return self.username
+        return f"{self.username}-{self.id}"
 
 class MaleUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
@@ -21,7 +21,7 @@ class MaleUser(models.Model):
     introduction = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username}-{self.user}"
 
 class FemaleUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
@@ -40,8 +40,8 @@ class ProfileImage(models.Model):
 
 class Hobby(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    type = models.CharField(max_length=100)
     user = models.ForeignKey(MaleUser, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100)
 
     def __str__(self):
         return self.type
