@@ -24,7 +24,7 @@ from myapp import views
 router = DefaultRouter()
 
 # ビューセットをルーターに登録
-router.register(r'mymodel', views.MyModelViewSet)
+router.register(r'maleuser', views.MyModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

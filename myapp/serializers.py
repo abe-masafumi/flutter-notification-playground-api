@@ -11,7 +11,8 @@ class MaleUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaleUser
-        fields = '__all__'
+        fields = ['id', 'username', 'birthday', 'address',]
+        read_only_fields = ['id', 'username', 'birthday', 'address']
 
 class FemaleUserSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer()

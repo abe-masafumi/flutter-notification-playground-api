@@ -1,7 +1,9 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     ROLES = (
         ('MALE', 'Male'),
         ('FEMALE', 'Female'),
@@ -31,6 +33,7 @@ class FemaleUser(models.Model):
 
 
 class ProfileImage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     image_url = models.URLField()
 
@@ -39,6 +42,7 @@ class ProfileImage(models.Model):
 
 
 class Hobby(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=100)
     male_user = models.ForeignKey(MaleUser, on_delete=models.CASCADE)
 
@@ -47,6 +51,7 @@ class Hobby(models.Model):
 
 
 class ApiLog(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     endpoint = models.CharField(max_length=255)
     request_time = models.DateTimeField(auto_now_add=True)
     method = models.CharField(max_length=10)
