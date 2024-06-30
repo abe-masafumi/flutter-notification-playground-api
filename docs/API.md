@@ -2,28 +2,21 @@
 
 ## エンドポイント一覧
 
-### 男性ユーザーエンドポイント
+- **<新規登録>**
+**POST /user/：新しいユーザーオブジェクトを作成**
 
-- **GET /api/maleuser/** - ユーザーのリストを取得
-- **POST /api/maleuser/** - 新しいユーザーを登録
-- **GET /api/maleuser/{id}/** - 特定のユーザーの情報を取得
-- **PUT /api/maleuser/{id}/** - 特定のユーザーの情報を更新
-- **PATCH /api/maleuser/{id}/** - 特定のユーザーの情報を更新
-- **DELETE /api/maleuser/{id}/** - 特定のユーザーを削除
+**<ユーザー情報編集>**
+PUT /maleuser/{id}/：introductionを更新
+PATCH /maleuser/{id}/：introductionを更新
 
-### 趣味エンドポイント
+**<趣味を追加>**
+POST /hobby/：新しい趣味オブジェクトを作成
 
-- **GET /api/skills/** - スキルのリストを取得
-- **POST /api/skills/** - 新しいスキルを登録
-- **GET /api/skills/{id}/** - 特定のスキルの情報を取得
-- **PUT /api/skills/{id}/** - 特定のスキルの情報を更新
-- **DELETE /api/skills/{id}/** - 特定のスキルを削除
+**<ユーザー情報詳細取得>**
+GET /maleuser/{id}/：特定のオブジェクトの詳細を取得
 
-### 女性ユーザーエンドポイント
+**<趣味を削除>**
+DELETE /hobby/{id}/：趣味オブジェクトを削除
 
-- **GET /api/femaleuser/** - ユーザーのリストを取得
-- **POST /api/femaleuser/** - 新しいユーザーを登録
-- **GET /api/femaleuser/{id}/** - 特定のユーザーの情報を取得
-- **PUT /api/femaleuser/{id}/** - 特定のユーザーの情報を更新
-- **DELETE /api/femaleuser/{id}/** - 特定のユーザーを削除
-
+**<ユーザーを削除>**
+DELETE /maleuser/{id}/：オブジェクトを削除

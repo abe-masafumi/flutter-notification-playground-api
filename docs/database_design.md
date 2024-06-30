@@ -1,52 +1,45 @@
 # データベース設計
 
 このプロジェクトのデータベース設計は以下の通りです。
-
 ```mermaid
 erDiagram
     CUSTOMUSER {
-        uuid id PK
-        string firebase_uid "UNIUE"
-        string role
-    }
-
-    MALE_USER {
-        uuid id PK,FK
-        string username
+        UUID id PK "default=uuid.uuid4, editable=False"
+        string firebase_uid "max_length=255, unique=True"
+        string role "max_length=10, choices=ROLES"
+        string username "max_length=100"
         date birthday
-        string address
-        string introduction
     }
-    
-    FEMALE_USER {
-        uuid id PK,FK
-        string username
-        date birthday
-        string introduction
+    MALEUSER {
+        UUID user PK "OneToOneField(CustomUser, on_delete=models.CASCADE)"
+        string address "max_length=255"
+        text introduction "blank=True, null=True"
     }
-
-    PROFILE_IMAGE {
-        uuid id PK
-        int user_id FK
-        string image_url
+    FEMALEUSER {
+        UUID user PK "OneToOneField(CustomUser, on_delete=models.CASCADE)"
+        text introduction "blank=True, null=True"
     }
-    
+    PROFILEIMAGE {
+        UUID id PK "default=uuid.uuid4, editable=False"
+        UUID user FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
+        string image_url "URLField"
+    }
     HOBBY {
-        uuid id PK
-        string type
-        int male_user_id FK
+        UUID id PK "default=uuid.uuid4, editable=False"
+        string type "max_length=100"
+        UUID user FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
     }
-
-    API_LOG {
-        uuid id PK
-        string endpoint
-        datetime request_time
-        string method
+    APILOG {
+        UUID id PK "default=uuid.uuid4, editable=False"
+        string endpoint "max_length=255"
+        datetime request_time "auto_now_add=True"
+        string method "max_length=10"
         int status_code
-        int user_id FK
+        UUID user FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
     }
-
-  MALE_USER ||--o{ HOBBY : "has"
-  MALE_USER ||--o{ PROFILE_IMAGE : "has"
-  FEMALE_USER ||--o{ PROFILE_IMAGE : "has"
+  CUSTOMUSER ||--o{ MALEUSER : "has"
+  CUSTOMUSER ||--o{ FEMALEUSER : "has"
+  MALEUSER ||--o{ PROFILEIMAGE : "has"
+  FEMALEUSER ||--o{ PROFILEIMAGE : "has"
+  MALEUSER ||--o{ HOBBY : "has"
 ```

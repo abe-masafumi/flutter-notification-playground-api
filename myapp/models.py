@@ -1,6 +1,5 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 class CustomUser(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -10,27 +9,26 @@ class CustomUser(models.Model):
     )
     firebase_uid = models.CharField(max_length=255, unique=True)
     role = models.CharField(max_length=10, choices=ROLES)
+    username = models.CharField(max_length=100)
+    birthday = models.DateField()
+
+    def __str__(self):
+        return self.username
 
 class MaleUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    username = models.CharField(max_length=100)
-    birthday = models.DateField()
     address = models.CharField(max_length=255)
     introduction = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.username
-
+        return self.user.username
 
 class FemaleUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    username = models.CharField(max_length=100)
-    birthday = models.DateField()
     introduction = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.username
-
+        return self.user.username
 
 class ProfileImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -40,15 +38,13 @@ class ProfileImage(models.Model):
     def __str__(self):
         return self.image_url
 
-
 class Hobby(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=100)
-    male_user = models.ForeignKey(MaleUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MaleUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.type
-
 
 class ApiLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
