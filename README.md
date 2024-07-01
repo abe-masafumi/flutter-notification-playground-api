@@ -85,6 +85,11 @@ or
 .venvディレクトリを削除
 ```
 
+dockerコンテナのクリア
+```
+docker-compose down --volumes --remove-orphans
+```
+
 依存関係を再インストール
 ```
 poetry install
