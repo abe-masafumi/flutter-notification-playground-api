@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets, exceptions, mixins
+from rest_framework import viewsets, exceptions, mixins, status
+from rest_framework.response import Response
 from .serializers import CustomUser, CustomUserCreateSerializer, MaleUserUpdateSerializer, MaleUser, MaleUserRetrieveSerializer, Hobby, HobbySerializer
-from rest_framework.exceptions import ValidationError
 
 # ルート画面
 def home_view(request):
@@ -38,3 +38,9 @@ class HobbyViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.G
         user_id = self.request.data.get('user')
         user = MaleUser.objects.get(user=user_id)
         serializer.save(user=user)
+
+    # 削除処理でレスポンスデータを返す
+    def destroy(self, request, *args, **kwargs):
+            instance = self.get_object()
+            instance.delete()
+            return Response({'detail': 'Deletion was successful.'}, status=status.HTTP_204_NO_CONTENT)
