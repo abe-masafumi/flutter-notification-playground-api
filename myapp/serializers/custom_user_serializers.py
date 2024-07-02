@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MaleUser, FemaleUser, ProfileImage, Hobby, ApiLog, CustomUser
+from ..models import MaleUser, FemaleUser, CustomUser
 
 # 男性
 class MaleUserSerializer(serializers.ModelSerializer):
@@ -7,23 +7,11 @@ class MaleUserSerializer(serializers.ModelSerializer):
         model = MaleUser
         fields = '__all__'
 
-# ユーザー編集
-class MaleUserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MaleUser
-        fields = ['introduction']
-
 # 女性
 class FemaleUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = FemaleUser
         fields = '__all__'
-
-# ユーザー編集
-class FemaleUserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FemaleUser
-        fields = ['introduction']
 
 # カスタムユーザー
 class CustomUserCreateSerializer(serializers.ModelSerializer):
@@ -73,34 +61,6 @@ class CustomUserCreateSerializer(serializers.ModelSerializer):
                 representation['female_user'] = None
         return representation
 
-class CustomUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = '__all__'
 
-# 趣味
-class HobbySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Hobby
-        fields = ['id', 'user', 'type']
 
-# 単一ユーザー取得
-class MaleUserRetrieveSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
-    hobbies = HobbySerializer(many=True, read_only=True)
 
-    class Meta:
-        model = MaleUser
-        fields = ['user', 'hobbies', 'address', 'introduction']
-
-# プロフィール画像
-class ProfileImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProfileImage
-        fields = '__all__'
-
-# ログ
-class ApiLogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApiLog
-        fields = '__all__'
