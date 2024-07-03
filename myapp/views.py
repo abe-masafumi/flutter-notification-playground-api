@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, exceptions, mixins, status
 from rest_framework.response import Response
-from .serializers import CustomUser, CustomUserCreateSerializer, MaleUserUpdateSerializer, MaleUser, MaleUserRetrieveSerializer, Hobby, HobbySerializer
+from .serializers import CustomUser, CustomUserCreateSerializer, MaleUser, MaleUserUpdateSerializer, MaleUserRetrieveSerializer, Hobby, HobbySerializer
 
 # ルート画面
 def home_view(request):
