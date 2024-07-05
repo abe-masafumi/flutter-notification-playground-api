@@ -1,5 +1,10 @@
 # API Documentation
 
+list = list
+create = retrieve
+update = update,partial_update
+delete = destroy
+
 ## エンドポイント一覧
 
 **<新規登録>**  
