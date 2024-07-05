@@ -27,6 +27,7 @@ router = DefaultRouter()
 router.register(r'user', views.CustomUserViewSet)
 router.register(r'maleuser', views.MaleUserViewSet)
 router.register(r'hobbies', views.HobbyViewSet)
+router.register(r'femaleuser', views.FemaleUserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

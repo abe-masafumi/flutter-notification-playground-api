@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
-from .serializers import CustomUser, CustomUserCreateSerializer, MaleUser, MaleUserUpdateSerializer, MaleUserRetrieveSerializer, Hobby, HobbySerializer
+from .serializers import CustomUser, CustomUserCreateSerializer, MaleUser, MaleUserUpdateSerializer, MaleUserRetrieveSerializer, Hobby, HobbySerializer, FemaleUser, FemaleUserUpdateSerializer, FemaleUserRetrieveSerializer
 
 # ルート画面
 def home_view(request):
@@ -47,6 +47,27 @@ class HobbyViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.G
         user = MaleUser.objects.get(user=user_id)
         serializer.save(user=user)
 
+    # 削除処理でレスポンスデータを返す
+    def destroy(self, request, *args, **kwargs):
+            instance = self.get_object()
+            instance.delete()
+            return Response({'detail': 'Deletion was successful.'}, status=status.HTTP_204_NO_CONTENT)
+
+# 女性ユーザー情報操作
+class FemaleUserViewSet(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
+    queryset = FemaleUser.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['update', 'partial_update']:
+            return FemaleUserUpdateSerializer
+        elif self.action == 'retrieve':
+            return FemaleUserRetrieveSerializer
+        
     # 削除処理でレスポンスデータを返す
     def destroy(self, request, *args, **kwargs):
             instance = self.get_object()

@@ -1,5 +1,10 @@
 # API Documentation
 
+list = list
+create = retrieve
+update = update,partial_update
+delete = destroy
+
 ## エンドポイント一覧
 
 **<新規登録>**  
@@ -19,14 +24,14 @@ GET /maleuser/{id}/：特定のオブジェクトの詳細を取得
 DELETE /hobbies/{id}/：趣味オブジェクトを削除
 
 **<男性ユーザーを削除>**  
-DELETE /maleuser/{id}/：オブジェクトを削除
+DELETE /femaleuser/{id}/：オブジェクトを削除
 
 **<女性ユーザー情報編集>**  
-PUT /maleuser/{id}/：introductionを更新  
+PUT /femaleuser/{id}/：introductionを更新  
 PATCH /maleuser/{id}/：introductionを更新  
 
 **<女性ユーザー情報詳細取得>**  
-GET /maleuser/{id}/：特定のオブジェクトの詳細を取得
+GET /femaleuser/{id}/：特定のオブジェクトの詳細を取得
 
 **<女性ユーザーを削除>**  
-DELETE /maleuser/{id}/：オブジェクトを削除
+DELETE /femaleuser/{id}/：オブジェクトを削除
