@@ -37,9 +37,30 @@ erDiagram
         int status_code
         UUID user FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
     }
-  CUSTOMUSER ||--o{ MALEUSER : "has"
-  CUSTOMUSER ||--o{ FEMALEUSER : "has"
-  MALEUSER ||--o{ PROFILEIMAGE : "has"
-  FEMALEUSER ||--o{ PROFILEIMAGE : "has"
-  MALEUSER ||--o{ HOBBY : "has"
+    MATCHES {
+        UUID id PK "default=uuid.uuid4, editable=False"
+        UUID user1 FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
+        UUID user2 FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
+        datetime matched_at "auto_now_add=True"
+        boolean is_active "default=True"
+    }
+    MESSAGES {
+        UUID id PK "default=uuid.uuid4, editable=False"
+        UUID match FK "ForeignKey(MATCHES, on_delete=models.CASCADE)"
+        UUID sender FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
+        UUID receiver FK "ForeignKey(CustomUser, on_delete=models.CASCADE)"
+        text content "blank=False, null=False"
+        datetime sent_at "auto_now_add=True"
+        boolean is_read "default=False"
+    }
+    
+    CUSTOMUSER ||--o{ MALEUSER : "has"
+    CUSTOMUSER ||--o{ FEMALEUSER : "has"
+    MALEUSER ||--o{ PROFILEIMAGE : "has"
+    FEMALEUSER ||--o{ PROFILEIMAGE : "has"
+    MALEUSER ||--o{ HOBBY : "has"
+    CUSTOMUSER ||--o{ MATCHES : "matches"
+    CUSTOMUSER ||--o{ MESSAGES : "sends"
+    MATCHES ||--o{ MESSAGES : "contains"
+
 ```
